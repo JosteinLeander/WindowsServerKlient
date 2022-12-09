@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Windows Server Guide</title>
+  </head>
+  <h1>Windows server og klient guide</h1>
+  <body>
+    <ul class="nav">
+      <li><a href="#Oppsett av VM">Oppsett av VM</a></li>
+      <li><a href="#Oppsett av Windows">Oppsett av Windows</a></li>
+      <li><a href="#Oppsett av Server">Oppsett av Server</a></li>
+      <li><a href="#Oppsett av Klient">Oppsett av Klient</a></li>
+      <li><a href="#Oppsett av IIS">Oppsett av IIS og FTP</a></li>
+    </ul>
+    <div class="main">
+      <p>
+        <button onclick="darkMode()">Mørk modus</button> Jostein Leander Langmo,
+        Bleiker VGS, 2ITB, Desember 2022
+      </p>
+      <p>
+        Denne websiden viser hvordan man setter opp en VM, installerer og
+        konfigurerer Windows server v2019, Windows Klient v10, og hvordan man får opp en
+        nettside
+      </p>
+      <h2 id="Oppsett av VM">Oppsett av VM</h2>
+      <p>Videoen nedenfor viser hvordan setter opp VM</p>
+      <div>
+        <video width="320" height="240" controls>
+          <source src="VMogWindows/VMServer.mp4" />
+        </video>
+      </div>
+      <br/>
+      <h2 id="Oppsett av Windows">Installasjon av Windows Server</h2>
+      <p>Denne videoen viser hvordan man installerer en Windows server</p>
+      <div>
+        <video width="320" height="240" controls>
+          <source src="VMogWindows/WindowsServer.mp4" />
+        </video>
+      </div>
+      <br />
+
+      <h2 id="Oppsett av Server">Oppsett av Windows server</h2>
+      <p>Nedenfor beskrives hvordan man konfigurerer en Windows server</p>
+      <h3 id="newUser">Lage ny bruker</h3>
+      <p>Det er vanlig å lage en ny bruker først</p>
+      <img
+        id="UsersAdmin"
+        src="/ServerOppsett/Bruker/Users.png"
+        alt="UsersAdmin"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Bildet under viser hvordan man lager en ny bruker</p>
+      <img
+        id="MakeUser"
+        src="/ServerOppsett/Bruker/MakeUser.png"
+        alt="MakeUser"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Under ser du hvordan man gjør den nye brukeren om til Admin trykk på Check Names, og se at det blir understrek</p>
+      <img
+        id="AdminGroup"
+        src="/ServerOppsett/Bruker/Admingroup.png"
+        alt="adminGroup"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Endre navnet på Administrator til for eksempel NavnAdmin</p>
+      <img
+        id="AdminChange"
+        src="/ServerOppsett/Bruker/AdminChange.png"
+        alt="adminChange"
+        style="width: 250px; max-width: 300px"
+      />
+      <br />
+      <br />
+
+      <h3 id="IPDom">IP adresse og Domain</h3>
+      <p>Man må definere navn på maskinen, domene og IP-adresse (IPv4)</p>
+      <p>
+        Under ser du hvor man skal gå for å konfigurere pc navn, domain og IPv4
+      </p>
+      <img
+        id="LocalServer"
+        src="/ServerOppsett/PCDomainIPv4/LocalServer.png"
+        alt="LocalServer"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Man skriver inn navn på maskinen</p>
+      <img
+        id="EndreNavn"
+        src="/ServerOppsett/PCDomainIPv4/ServerChangeName.png"
+        alt="endreNavn"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Trykk på "more" og skriv inn domene navn</p>
+      <img
+        id="DomainName"
+        src="/ServerOppsett/PCDomainIPv4/DomainName.png"
+        alt="DomainName"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Trykk på Ethernet under properties for Local Server for å kunne angi IP-adresse</p>
+      <img
+        id="Ethernet"
+        src="/ServerOppsett/PCDomainIPv4/Ethernet.png"
+        alt="Ethernet"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Skriv inn IP-adresse for IPv4</p>
+      <img
+        id="IPv4"
+        src="/ServerOppsett/PCDomainIPv4/IPv4.png"
+        alt="IPv4"
+        style="width: 250px; max-width: 300px"
+      />
+      <br />
+      <br />
+
+      <h3 id="dns">DNS</h3>
+      <p>DNS brukes for å koble domenenavnet til IP-adressen</p>
+      <p>Under ser du roles and features hvor du installerer DNS</p>
+      <img
+        id="AddRolesAndFeature"
+        src="/ServerOppsett/ADDS/RolesFeatures.png"
+        alt="AddRolesAndFeature"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Huk av for DNS og trykk Next, som bildet under viser</p>
+      <img
+        id="VelgDNS"
+        src="/ServerOppsett/DNS/VelgDNS.png"
+        alt="velgDNS"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Trykk deretter på add features og Next helt til Installer</p>
+      <br /><br />
+
+      <h3 id="adds">ADDS</h3>
+      <p>
+        Trykk på roles and features og Next til role selection hvor du velger
+        Active Domain Directory Service (ADDS)
+      </p>
+      <img
+        id="VelgADDS"
+        src="/ServerOppsett/ADDS/VelgADDS.png"
+        alt="velgADDS"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Velg add features og fullfør installeringen</p>
+      <img
+        id="InstallADDS"
+        src="/ServerOppsett/ADDS/InstallADDS.png"
+        alt="installADDS"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <h3>Konfigurer ADDS</h3>
+      <p>Trykk på flagget med gult varsel tegn og velg Promote this server to a domain</p>
+      <p>Velg Add a new forest og skriv inn domene navnet som bildet under viser</p>
+      <img
+        id="NewForest"
+        src="/ServerOppsett/ADDS/NewforestADDS.png"
+        alt="NewForest"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Opprett et passord for ADDS og trykk Next som i bildet under</p>
+      <img
+        id="PasswordADDS"
+        src="/ServerOppsett/ADDS/PassordADDS.png"
+        alt="PasswordADDS"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>
+        Trykk helt til Prerequisites Check, hvis det er grønt nederst kan du
+        trykke på Install, som i bildet under
+      </p>
+      <img
+        id="DownGreen"
+        src="/ServerOppsett/ADDS/NederstGreen.png"
+        alt="DownGreen"
+        style="width: 250px; max-width: 300px"
+      />
+      <br />
+      <br />
+
+      <h3>DHCP</h3>
+      <p>Man må definere DHCP slik at man får en automatisk IP-adresse når man kobler til en klient</p>
+      <p>
+        Gå til Add roles and features og trykk Next helt til role selection,
+        velg DHCP
+      </p>
+      <p>Trykk på add feature og fullfør installeringen (samme som ble gjort når vi la til DNS og ADDS)</p>
+      <p>Trykk på flagget og så på Complete DHCP configuration</p>
+      <img
+        id="ConfigDHCP"
+        src="/ServerOppsett/DHCP/CompDHCPConfig.png"
+        alt="ConfigDHCP"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>
+        Pass på at Use the following user's credentials er huket av og er
+        riktig
+      </p>
+      <img
+        id="DHCPusername"
+        src="/ServerOppsett/DHCP/DHCPConfigUserName.png"
+        alt="DHCPusername"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Hvis det er riktig trykk på Commit, hvis ikke må det endres</p>
+      <p>
+        Trykk på Tools og velg DHCP, så finner du IPv4, høyreklikk på IPv4 og velg
+        New Scope som i bildet under
+      </p>
+      <img
+        id="NewScope"
+        src="/ServerOppsett/DHCP/NewScope.png"
+        alt="NewScope"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Velg navn på det nye scopet som i bildet under</p>
+      <img
+        id="NameScope"
+        src="/ServerOppsett/DHCP/NameScope.png"
+        alt="NameScope"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Så må IP-adresseområdet defineres som i bildet under</p>
+      <img
+        id="IPRange"
+        src="/ServerOppsett/DHCP/IPRange.png"
+        alt="IPRange"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Her definerer man Ruter - Default Gateway</p>
+      <img
+        id="GateScope"
+        src="/ServerOppsett/DHCP/GateScope.png"
+        alt="GateScope"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Under viser bildet hvordan Domain Name and DNS Servers skal se ut. Pass på at du finner Domenenavnet ditt og IP-adressen til serveren</p>
+      <img
+        id="NextHvisRiktig"
+        src="/ServerOppsett/DHCP/NextHvisRiktig.png"
+        alt="NextHvisRiktig"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Trykk Next helt til Finish</p>
+      <br />
+      <br />
+
+      <h2 id="Oppsett av Klient">Oppsett av Klient</h2>
+      <p>Videoen under viser hvordan man setter opp VM og Windows klient v10</p>
+      <div>
+        <video width="320" height="240" controls>
+          <source src="KlientOppsett/KlientMaskin.mp4" />
+        </video>
+      </div>
+      <p>
+        Hvis du har fulgt instruksene over riktig så skal denne meldingen her
+        komme opp etter at du har settet opp klienten
+      </p>
+      <img
+        id="Connect"
+        src="/KlientOppsett/"
+        alt="Connect"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Etter å ha trykket på "Ja", skal det se sånn ut</p>
+      <img
+        id="Connected"
+        src="/KlientOppsett/Connected.png"
+        alt="Connected"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>Som man ser i bildet over nederst i høyre hjørne så er klienten automatisk koblet til serveren</p>
+      <br />
+      <br />
+
+      <h2 id="Oppsett av IIS">Oppsett av IIS og FTP</h2>
+      <p>Internet Information Services (IIS) brukes for å hoste en webside</p>
+      <p>FTP er for å overføre filer til serveren (Websiden etc)</p>
+      <h3 id="IISFTP">Installer IIS og FTP</h3>
+      <p>På Windows serveren velger du Add roles and features og huk av for Web Server (IIS)</p>
+      <img
+        id="VelgIIS"
+        src="/IISOgFTP/VelgISS.png"
+        alt="VelgISS"
+        style="width: 250px; max-width: 300px"
+      />
+      <p>
+        Trykk på Add features så trykker du på Role Services og velger FTP
+        Server, trykk så på Next helt til man velger Install
+      </p>
+
+      <h3 id="FTPConf">Konfigurer FTP</h3>
+      <p>Trykk på Tools og velg Internet Information Services (IIS) Manager</p>
+      <p>
+        Trykk på JLL (JLL\Administrators) og finn mappen som heter Sites
+        høyreklikk Sites og velg Add FTP Site..., som bildet under viser
+      </p>
+      <img
+        id="AddFTPSite"
+        src="/IISOgFTP/AddFTPSite.png"
+        alt="AddFTPSite"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>
+        Velg FTP navn og lag en mappe som du selv velger navn på som i bilde
+        under (det er vanlig å flytte filer over til server i en lokal mappe før de kopieres inn til endelig mappe, fordi det kan bli noe feil i overføringen)
+      </p>
+      <img
+        id="NavnFTP"
+        src="/IISOgFTP/NavnFTP.png"
+        alt="NavnFTP"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>
+        Trykk på Next helt til Binding and SSL Settings velg No SSL og
+        Next som i bildet under
+      </p>
+      <img
+        id="NoSSL"
+        src="/IISOgFTP/NoSSL.png"
+        alt="NoSSL"
+        style="width: 250px; max-width: 300px"
+      />
+
+      <p>Velg Anonymous, All users, read og write, så Finish (sikkerhetsmessig burde man ha definert en bruker)</p>
+      <img
+        id="AllowAnonymous"
+        src="/IISOgFTP/AllowAnonymous.png"
+        alt="Allow"
+        style="width: 250px; max-width: 300px"
+      />
+      <br />
+      <br />
+
+      <h2 id="FileZilla">FileZilla</h2>
+      <p>
+        I denne guiden er det brukt programmet FileZilla for å overføre filene til serveren
+      </p>
+      <img
+        id="FileZ"
+        src="/FileZilla/FileZilla.png"
+        alt="FileZilla"
+        style="width: 250px; max-width: 300px"
+      />
+    </div>
+
+    <footer>
+      <hr>
+      <p>Jostein Leander Langmo</p>
+      <a href="mailto:jlelangmo@gmail.com">jlelangmo@gmail.com</a>
+      <a href="https:/discord.gg/GxvDAptdMX">For support click link</a>
+    </footer>
+
+    <script>
+      function darkMode() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      }
+    </script>
+  </body>
+</html>
